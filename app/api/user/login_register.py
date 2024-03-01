@@ -27,9 +27,7 @@ def create_token(user_id: int, expires_in: int = 3600):
 
 def authenticate_user(username, password):  
     # 从数据库中查询用户  
-    user = User.query.filter_by(username=username).first()  
-    print('111'+password)
-    print('222',user.check_password(password))
+    user = User.query.filter_by(username=username).first()   
     
     # 检查用户是否存在，并且密码是否匹配  
     if user and user.check_password(password):  
@@ -53,8 +51,6 @@ def register():
     if User.query.filter_by(username=username).first():  
         return jsonify({'error': 'Username already exists'}), 400  
   
-    # 在数据库中创建新用户  
-    # new_user = User(username=username, password=password)
      # 在数据库中创建新用户，并加密密码  
     new_user = User(username=username)  
     new_user.set_password(password)   
@@ -67,7 +63,7 @@ def register():
     return jsonify({'code': 200, 'msg': 'User registered successfully', }), 200
 
 
-# @api_bp.route("/login",methods=['GET'])
+# @api_bp.route("/login",methods=['POST'])
 def login():
     # 从请求中获取用户名和密码  
     data = request.get_json()  
