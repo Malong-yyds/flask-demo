@@ -1,29 +1,15 @@
 # demodemo\ihome\api\de.py
 
-from flask import  jsonify, request  
-from datetime import datetime, timedelta
-from flask_jwt_extended import create_access_token  
-import jwt 
+from flask import  jsonify, request
+
+from ..token import create_token  
+
+
 from .userModel import User
 from extension import db 
 
 
-# 密钥，用于签名和验证JWT  
-SECRET_KEY = 'your-super-secret-key' 
 
-
-# 生成JWT  
-def create_token(user_id: int, expires_in: int = 3600):  
-    payload = {  
-        'iss': 'http://example.org',  
-        'iat': datetime.utcnow(),  
-        'nbf': datetime.utcnow() + timedelta(seconds=10),  
-        'exp': datetime.utcnow() + timedelta(seconds=expires_in),  
-        'aud': 'http://example.com/resources',  
-        'sub': user_id,  
-        'jti': 'unique_jwt_id'  
-    }  
-    return jwt.encode(payload, SECRET_KEY, algorithm='HS256')  
 
 def authenticate_user(username, password):  
     # 从数据库中查询用户  
@@ -79,7 +65,7 @@ def login():
         user_id = user.id  
         # 生成token  
         token = create_token(user_id)  
-        return jsonify({'code':200,'msg':'success','data': token}), 200  
+        return jsonify({'code':200,'msg':'success','data': {'token':token,'id':user_id}}), 200  
     else:  
         # 如果用户不存在或密码错误  
         return jsonify({'error': 'Invalid username or password'}), 401

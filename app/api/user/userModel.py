@@ -3,7 +3,8 @@
 from extension import db
 
 from werkzeug.security import generate_password_hash, check_password_hash  
-class User(db.Model):  
+class User(db.Model):
+    __tablename__ = 'user'  
     id = db.Column(db.Integer, primary_key=True)  
     username = db.Column(db.String(80), unique=True, nullable=False)  
     password = db.Column(db.String(255), nullable=False)  # 通常密码会经过哈希处理  
