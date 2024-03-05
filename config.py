@@ -1,5 +1,4 @@
 # config.py
-# demodemo\config.py  
 class Config:  
     MYSQL_HOST = 'localhost'  
     MYSQL_USER = 'root'  
@@ -12,3 +11,4 @@ class Config:
     JWT_TOKEN_LOCATION='headers'
     JWT_HEADER_NAME='Authorization'
     JWT_HEADER_TYPE='Bearer'
+    UPLOAD_FOLDER = 'app/static'

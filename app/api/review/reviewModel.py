@@ -9,5 +9,6 @@ class Review(db.Model):
     comment_content=db.Column(db.Text) 
     time_posted=db.Column(db.Date)
     like_count  =db.Column(db.Integer)
+    image_paths=db.Column(db.String(512))
      # 添加关系字段  
     user = db.relationship("User", backref="review")

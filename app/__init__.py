@@ -1,5 +1,5 @@
 # coding:utf-8
-# demodemo\ihome\__init__.py
+# app\__init__.py
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager

@@ -42,19 +42,7 @@ def detail_attraction():
     id=request.args.get('attId',type=int)
     # 查询景点详情  
     attraction = Attraction.query.get(id)  
-    reviews = Review.query.filter_by(attraction_id=id).all()
-    reviews_list = [  
-            {  
-                'review_id': review.review_id,  
-                'comment_content': review.comment_content,  
-                'rating': review.rating,  
-                'time_posted': review.time_posted.strftime('%Y-%m-%d'),  
-                'like_count': review.like_count,  
-                'username': review.user.username,  # 通过关系获取用户名  
-            }  
-            for review in reviews  
-        ]
-    # 组合景点信息和评价列表  
+   
     detail_data = {  
                 'attraction_id': attraction.attraction_id,  
                 'name': attraction.name,  
@@ -65,8 +53,7 @@ def detail_attraction():
                 'opening_hours': attraction.opening_hours,  
                 'official_phone': attraction.official_phone,  
                 'description': attraction.description,  
-                'tips': attraction.tips,  
-                'reviews': reviews_list  
+                'tips': attraction.tips,   
             }  
    
     return jsonify({'code': 200, 'data': detail_data, 'message': 'success'})
