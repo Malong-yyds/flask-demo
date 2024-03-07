@@ -1,4 +1,4 @@
-# demodemo\extension.py
+# tripBack\extension.py
 
 from flask_sqlalchemy import SQLAlchemy  
   

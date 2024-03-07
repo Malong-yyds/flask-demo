@@ -19,10 +19,10 @@ def create_app():
     db.init_app(app)
 
     # 注册蓝图
-    from app.api import user,attraction,review
+    from app.api import user,attraction,review,recommender
     app.register_blueprint(user.user_bp, url_prefix="/api/user")
     app.register_blueprint(attraction.attaction_bp, url_prefix="/api/attraction")
     app.register_blueprint(review.review_bp, url_prefix="/api/review")
-
+    app.register_blueprint(recommender.recommender_bp, url_prefix="/api/recommender")
       
     return app

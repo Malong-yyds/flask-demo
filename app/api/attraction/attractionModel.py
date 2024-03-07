@@ -13,4 +13,13 @@ class Attraction(db.Model):
     official_phone	=db.Column(db.String(45)) 
     description	=db.Column(db.Text) 
     tips=db.Column(db.String(512)) 
-    flag = db.Column(db.String(2))  # 假设flag是非空的整数  
+    flag = db.Column(db.String(2))  # 假设flag是非空的整数 
+    city = db.Column(db.String(4))
+    def to_dict(self):  
+        return {  
+            'id': self.attraction_id,  
+            'name': self.name,
+            'image_link':self.image_link
+            # 'description': self.description,  
+            # 添加其他需要序列化的属性  
+        } 

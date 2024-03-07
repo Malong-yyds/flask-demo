@@ -73,7 +73,7 @@ def post_review():
   # 检查文件类型  
         if image and image.filename.endswith(('.png', '.jpg', '.jpeg')):  
             # 生成安全的文件名  
-            filename = os.path.join('app/uploads/', secure_filename(image.filename))  
+            filename = os.path.join('app/static/', secure_filename(image.filename))  
             # 保存文件  
             image.save(filename)  
             # 将文件路径添加到列表中  
