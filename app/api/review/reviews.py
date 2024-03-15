@@ -10,8 +10,15 @@ import os
 @jwt_required()
 def reviews_attraction():
     id=request.args.get('attId',type=int)
+    page = request.args.get('page', 1,type=int)  
+    per_page = request.args.get('pageSize', 5,type=int) 
     # 查询景点用户评价  
-    reviews = Review.query.filter_by(attraction_id=id).all()
+    # 使用 paginate 进行分页查询  
+    reviews_pagination = Review.query.filter_by(attraction_id=id).order_by(Review.time_posted.desc()).paginate(page=page, per_page=per_page)  
+  
+    # 提取当前页的数据  
+    reviews = reviews_pagination.items 
+    
     reviews_list = [  
             {  
                 'review_id': review.review_id,  
@@ -25,8 +32,9 @@ def reviews_attraction():
             for review in reviews  
         ]
  
-   
-    return jsonify({'code': 200, 'data': reviews_list, 'message': 'success'})
+    total_pages = reviews_pagination.pages  
+    total_items = reviews_pagination.total  
+    return jsonify({'code': 200, 'data': {'reviews_list':reviews_list,'total':total_items}, 'message': 'success'})
 
 
 
