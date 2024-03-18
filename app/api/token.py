@@ -1,5 +1,5 @@
  
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,timezone 
 import jwt 
 
 
@@ -11,9 +11,9 @@ SECRET_KEY = 'my-secret-key'
 def create_token(user_id: int, expires_in: int = 3600):  
     payload = {  
         'iss': 'http://example.org',  
-        'iat': datetime.utcnow(),  
-        'nbf': datetime.utcnow() + timedelta(seconds=10),  
-        'exp': datetime.utcnow() + timedelta(seconds=expires_in),  
+        'iat': datetime.now(tz=timezone.utc),  
+        'nbf': datetime.now(tz=timezone.utc) + timedelta(seconds=10),  
+        'exp': datetime.now(tz=timezone.utc) + timedelta(seconds=expires_in),  
         'aud': 'http://example.com/resources',  
         'sub': user_id,  
         'jti': 'unique_jwt_id'  
