@@ -43,6 +43,7 @@ def detail_attraction():
     detail_data = {  
                 'attraction_id': attraction.attraction_id,  
                 'name': attraction.name,  
+                'video':attraction.video_link,
                 'image_link': attraction.image_link,  
                 'address': attraction.address,  
                 'average_score': attraction.average_score,  

@@ -4,7 +4,7 @@ class Attraction(db.Model):
     __tablename__ = 'attraction'  
     attraction_id = db.Column(db.Integer, primary_key=True)  
     name = db.Column(db.String(80), nullable=False)  
-    # detail_page_link = db.Column(db.String(512))  
+    video_link = db.Column(db.String(512))  
     image_link = db.Column(db.String(512))  
     address = db.Column(db.String(120))  
     average_score = db.Column(db.Float)  
