@@ -20,8 +20,8 @@ class Attraction(db.Model):
         return {  
             'id': self.attraction_id,  
             'name': self.name,
-            'image_link':self.image_link
-            # 'description': self.description,  
+            'image_link':self.image_link,
+            'average_score': self.average_score
             # 添加其他需要序列化的属性  
         } 
     
@@ -34,3 +34,10 @@ class Food(db.Model):
     img=db.Column(db.String(150))
     label=db.Column(db.String(45))
     attractionId=db.Column(db.Integer, db.ForeignKey('attraction.attraction_id'), nullable=False)  # 外键关联景点表
+
+
+class Region(db.Model):
+    __tablename__='regions_cities'
+    id=db.Column(db.Integer, primary_key=True, autoincrement=True)  # 自增主键 
+    region=db.Column(db.String(40))
+    city=db.Column(db.String(40))

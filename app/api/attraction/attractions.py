@@ -1,5 +1,6 @@
 from flask import jsonify, request
-from .attractionModel import Attraction, Food
+from sqlalchemy import desc
+from .attractionModel import Attraction, Food, Region
 
 
 def get_attractions_list():  
@@ -58,7 +59,7 @@ def detail_attraction():
     return jsonify({'code': 200, 'data': detail_data, 'message': 'success'})
 
 # 周围美食
-def getFood():
+def near_food():
      id=request.args.get('attId',type=int)
      food_results=Food.query.filter_by(attractionId=id).all()
      food_list=[
@@ -73,3 +74,20 @@ def getFood():
      ]
 
      return jsonify({'code': 200, 'data': food_list, 'message': 'success'})
+
+# 周围景点
+def near_attraction():
+    attr_id = request.args.get('attId', type=int)  
+    current_attraction = Attraction.query.get(attr_id)  
+    if not current_attraction:  
+        return jsonify({'code': 404, 'message': 'Attraction not found'}), 404  
+    current_region = Region.query.filter_by(city=current_attraction.city).first().region  
+    if not current_region:  
+        return jsonify({'code': 500, 'message': 'Failed to determine region'}), 500  
+    recommended_attractions = Attraction.query.filter(  
+        Attraction.flag == current_attraction.flag,  
+        Attraction.city == current_attraction.city,
+        Attraction.attraction_id != attr_id  # 排除当前景点 
+    ).order_by(desc(Attraction.average_score)).limit(4).all()   
+    att_list = [attr.to_dict() for attr in recommended_attractions]  
+    return jsonify({'code': 200, 'data': att_list, 'message': 'success'})  
