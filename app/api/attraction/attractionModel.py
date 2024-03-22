@@ -24,3 +24,13 @@ class Attraction(db.Model):
             # 'description': self.description,  
             # 添加其他需要序列化的属性  
         } 
+    
+
+
+class Food(db.Model):
+    __tablename__ = 'food'
+    foodId = db.Column(db.Integer, primary_key=True, autoincrement=True)  # 自增主键  
+    name=db.Column(db.String(45))
+    img=db.Column(db.String(150))
+    label=db.Column(db.String(45))
+    attractionId=db.Column(db.Integer, db.ForeignKey('attraction.attraction_id'), nullable=False)  # 外键关联景点表

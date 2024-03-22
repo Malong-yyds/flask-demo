@@ -1,5 +1,5 @@
 from flask import jsonify, request
-from .attractionModel import Attraction
+from .attractionModel import Attraction, Food
 
 
 def get_attractions_list():  
@@ -56,3 +56,20 @@ def detail_attraction():
             }  
    
     return jsonify({'code': 200, 'data': detail_data, 'message': 'success'})
+
+# 周围美食
+def getFood():
+     id=request.args.get('attId',type=int)
+     food_results=Food.query.filter_by(attractionId=id).all()
+     food_list=[
+          {
+                'foodId': food.foodId,  
+                'name': food.name,  
+                'img': food.img,  
+                'label': food.label,  
+                
+          }
+          for food in food_results
+     ]
+
+     return jsonify({'code': 200, 'data': food_list, 'message': 'success'})
