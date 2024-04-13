@@ -21,7 +21,8 @@ class Attraction(db.Model):
             'id': self.attraction_id,  
             'name': self.name,
             'image_link':self.image_link,
-            'average_score': self.average_score
+            'average_score': self.average_score,
+            'description':self.description
             # 添加其他需要序列化的属性  
         } 
     
